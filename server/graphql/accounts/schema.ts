@@ -1,11 +1,30 @@
-import { gql } from "apollo-server-express";
+import { gql } from 'apollo-server-express';
 
 export const schema = gql`
+  type Account {
+    _id: ID!
+    name: String!
+    email: String!
+    createdAt: String
+    updatedAt: String
+  }
+
+  type AccountConnection {
+    accounts: [Account!]!
+    totalCount: Int!
+  }
+
+  input CreateAccountInput {
+    name: String!
+    email: String!
+  }
+
   extend type Query {
-    testAccQ: Int
+    account(id: ID!): Account
+    accounts(page: Int, perPage: Int, name: String): AccountConnection!
   }
 
   extend type Mutation {
-    testAccM: Boolean
+    createAccount(input: CreateAccountInput!): Account!
   }
 `;

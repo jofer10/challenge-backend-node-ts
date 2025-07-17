@@ -1,4 +1,4 @@
-import "dotenv/config";
+import 'dotenv/config';
 
 const config = {
   server: {
@@ -20,7 +20,7 @@ const config = {
   },
   pagination: {
     page: Number(process.env.PAGE) || 1,
-    perPage: Number(process.env.PAGE) || 20,
+    perPage: Number(process.env.PER_PAGE) || 20,
   },
 };
 

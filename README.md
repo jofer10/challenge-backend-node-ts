@@ -105,6 +105,107 @@ server/
 - README con instrucciones para levantar el proyecto
 - Documentación de operaciones (puede ser en GraphQL Playground)
 
+## 🛠️ Instalación y Configuración
+
+### Requisitos previos
+- Node.js v18 o superior
+- MongoDB v4.4 o superior
+- npm o yarn
+
+### Pasos de instalación
+
+1. Clonar el repositorio:
+```bash
+git clone <repositorio>
+cd challenge-backend-node-ts
+```
+
+2. Instalar dependencias:
+```bash
+npm install
+```
+
+3. Configurar variables de entorno:
+- Copia `.env.example` a `.env`
+- Ajusta las variables según tu entorno:
+  ```env
+  # Server Configuration
+  PORT=4000
+  NODE_ENV=development
+
+  # MongoDB Configuration
+  MONGODB_ACCOUNTS_URI=mongodb://localhost:27017/eiAccounts
+  MONGODB_BUSINESS_URI=mongodb://localhost:27017/eiBusiness
+
+  # Pagination Defaults
+  DEFAULT_PAGE=1
+  DEFAULT_PER_PAGE=10
+
+  # Odoo Configuration (opcional)
+  ODOO_HOST=http://localhost
+  ODOO_PORT=8069
+  ODOO_DB=odoo
+  ODOO_USERNAME=admin
+  ODOO_PASSWORD=admin
+  ```
+
+4. Iniciar el servidor:
+```bash
+npm run dev
+```
+
+5. Acceder al GraphQL Playground:
+- URL: http://localhost:4000/graphql
+
+### Estructura de la base de datos
+
+1. Base de datos `eiAccounts`:
+   - Colección: `accounts`
+   - Campos:
+     - `name`: String (requerido, mín. 2 caracteres)
+     - `email`: String (requerido, único, formato válido)
+     - `createdAt`: Date
+     - `updatedAt`: Date
+
+2. Base de datos `eiBusiness`:
+   - Colección: `products`
+   - Campos:
+     - `name`: String (requerido, mín. 2 caracteres)
+     - `sku`: String (requerido, único)
+     - `stock`: Number (requerido, >= 0)
+     - `accountId`: String (requerido, ref: accounts)
+     - `createdAt`: Date
+     - `updatedAt`: Date
+
+## 📘 Documentación
+
+1. GraphQL API:
+   - Ver archivo [GRAPHQL.md](GRAPHQL.md) para ejemplos detallados de:
+     - Queries y mutations disponibles
+     - Formato de entrada y respuesta
+     - Manejo de errores
+     - Validaciones de campos
+
+2. Integración con Odoo:
+   - El servicio está implementado en `server/services/odoo.ts`
+   - Funcionalidades:
+     - Búsqueda de clientes por email o nombre
+     - Creación/actualización de clientes
+   - No requiere una instancia de Odoo, es solo demostrativo
+
+## 🧪 Testing
+
+Para ejecutar las pruebas:
+```bash
+npm test
+```
+
+## 📝 Notas adicionales
+
+- Los logs se guardan en la carpeta `logs/`
+- Se usa ESLint y Prettier para mantener la calidad del código
+- La documentación de GraphQL está disponible en el Playground
+
 ---
 
 📢 **Importante**: Este reto está diseñado para ser resuelto en 1 o 2 días como máximo. No se espera una arquitectura enterprise, pero sí buenas prácticas y claridad.
